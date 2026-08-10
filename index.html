@@ -1825,7 +1825,7 @@
                     let y =
                         currentYear - 3;
                     y <=
-                    currentYear + 2;
+                    currentYear + 14;
 
                     y++
                 ) {
@@ -2169,33 +2169,25 @@
                         )
                     );
 
-
                 const monthlyFG =
                     Array(12).fill(0);
-
-
                 snapshot.forEach(
                     doc => {
 
                         const data =
                             doc.data();
-
-
                         const date =
                             parseDate(
                                 data.date
                             );
 
-
                         if (!date)
                             return;
-
 
                         if (
                             date.getFullYear()
                             === year
                         ) {
-
                             monthlyFG[
                                 date.getMonth()
                             ] += Number(
@@ -2211,7 +2203,6 @@
                     productionChart.destroy();
 
                 }
-
                 productionChart =
                     new Chart(
                         document.getElementById(
