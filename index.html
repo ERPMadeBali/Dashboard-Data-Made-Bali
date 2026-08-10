@@ -946,7 +946,7 @@
                         <img src="logo-perusahaan.png" alt="Logo Perusahaan">
                     </div>
                     <div class="login-title">
-                        Sales Executive Report
+                        Report Data Made Bali
                     </div>
                     <div class="login-subtitle">
                         Sign in untuk melihat laporan perusahaan
@@ -1083,26 +1083,6 @@
                  KPI
             ================================================== -->
                     <section class="kpi-grid">
-                        <!-- PRODUCTION -->
-                        <div class="kpi-card">
-                            <div class="kpi-top">
-                                <div class="kpi-icon">
-                                    📦
-                                </div>
-                                <div id="productionPeriod" class="kpi-period">
-                                    -
-                                </div>
-                            </div>
-                            <div class="kpi-label">
-                                Total Production
-                            </div>
-                            <div id="dashTotalProduction" class="kpi-value">
-                                0 Pcs
-                            </div>
-                            <div class="kpi-description">
-                                Finished goods production
-                            </div>
-                        </div>
                         <!-- SALES -->
                         <div class="kpi-card">
                             <div class="kpi-top">
@@ -1123,6 +1103,26 @@
                                 Total penjualan periode terpilih
                             </div>
                         </div>
+                        <!-- COST PRODUCTION -->
+                        <div class="kpi-card">
+                            <div class="kpi-top">
+                                <div class="kpi-icon">
+                                    📦
+                                </div>
+                                <div id="hppPeriod" class="kpi-period">
+                                    -
+                                </div>
+                            </div>
+                            <div class="kpi-label">
+                                Hpp Production
+                            </div>
+                            <div id="dashTotalCOGS" class="kpi-value">
+                                Rp 0
+                            </div>
+                            <div class="kpi-description">
+                                Total Cost production
+                            </div>
+                        </div>
                         <!-- COST -->
                         <div class="kpi-card">
                             <div class="kpi-top">
@@ -1134,13 +1134,13 @@
                                 </div>
                             </div>
                             <div class="kpi-label">
-                                Production Cost
+                                Cost Overhead
                             </div>
                             <div id="dashTotalCostProduction" class="kpi-value">
                                 Rp 0
                             </div>
                             <div class="kpi-description">
-                                COGS + production overhead
+                                Total Cost Overhead
                             </div>
                         </div>
                         <!-- PROFIT -->
@@ -1161,6 +1161,26 @@
                             </div>
                             <div class="kpi-description">
                                 Sales - Production Cost
+                            </div>
+                        </div>
+                        <!-- FG PRODUCTION -->
+                        <div class="kpi-card">
+                            <div class="kpi-top">
+                                <div class="kpi-icon">
+                                    📦
+                                </div>
+                                <div id="productionPeriod" class="kpi-period">
+                                    -
+                                </div>
+                            </div>
+                            <div class="kpi-label">
+                                FG Result
+                            </div>
+                            <div id="dashTotalProduction" class="kpi-value">
+                                Rp 0
+                            </div>
+                            <div class="kpi-description">
+                                Finished goods production
                             </div>
                         </div>
                     </section>
@@ -1457,6 +1477,10 @@
 
                 document.getElementById(
                     "productionPeriod"
+                ).textContent = label;
+
+                document.getElementById(
+                    "hppPeriod"
                 ).textContent = label;
 
                 document.getElementById(
@@ -1807,6 +1831,7 @@
                             "production_results"
                         )
                     );
+
                 let totalFG = 0;
                 snapshot.forEach(
                     doc => {
@@ -1850,9 +1875,7 @@
             /* =========================================================
                PRODUCTION CHART
             ========================================================== */
-
             async function loadProductionChart() {
-
                 const year =
                     Number(
                         document.getElementById(
@@ -2211,7 +2234,6 @@
                 /* =====================================================
                    OVERHEAD
                 ====================================================== */
-
                 costSnapshot.forEach(
                     doc => {
 
@@ -2248,14 +2270,19 @@
                     totalCOGS +
                     totalOverhead;
 
-
                 document.getElementById(
                     "dashTotalCostProduction"
                 ).textContent =
 
                     formatRupiah(
-                        dashboardTotalProductionCost
+                        totalOverhead
                     );
+
+                document.getElementById(
+                    "dashTotalCOGS"
+                ).textContent =
+                    "Rp " +
+                    totalCOGS.toLocaleString("id-ID");
 
             }
 
